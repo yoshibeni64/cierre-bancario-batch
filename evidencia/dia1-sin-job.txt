@@ -1,0 +1,19 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-05T15:14:41.888-06:00  INFO 12920 --- [cierre-bancario-batch] [           main] c.a.b.CierreBancarioBatchApplication     : Starting CierreBancarioBatchApplication using Java 17.0.20.1 with PID 12920 (/home/rodrigo/cierre-bancario-batch/target/classes started by rodrigo in /home/rodrigo/cierre-bancario-batch)
+2026-10-05T15:14:41.890-06:00  INFO 12920 --- [cierre-bancario-batch] [           main] c.a.b.CierreBancarioBatchApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-10-05T15:14:42.372-06:00  INFO 12920 --- [cierre-bancario-batch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-05T15:14:42.596-06:00  INFO 12920 --- [cierre-bancario-batch] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2f00f851
+2026-10-05T15:14:42.598-06:00  INFO 12920 --- [cierre-bancario-batch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-05T15:14:42.684-06:00  INFO 12920 --- [cierre-bancario-batch] [           main] c.a.b.CierreBancarioBatchApplication     : Started CierreBancarioBatchApplication in 1.091 seconds (process running for 1.383)
+2026-10-05T15:14:42.687-06:00  INFO 12920 --- [cierre-bancario-batch] [           main] o.s.b.b.a.JobLauncherApplicationRunner   : Running default command line with: []
+2026-10-05T15:14:42.691-06:00  INFO 12920 --- [cierre-bancario-batch] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-05T15:14:42.695-06:00  INFO 12920 --- [cierre-bancario-batch] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
