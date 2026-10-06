@@ -1,42 +1,25 @@
-# Cierre bancario con Spring Batch
-
-**Autor:** José Rodrigo Benítez Rivera
-
-## Cómo correrlo
-
-```
-docker compose up -d --wait
-./correr.sh 2026-09-30 prueba
-./ver-batch.sh
-```
-
-## Día 1 · Mi primer Job
+## Día 2 · El primer chunk
 
 ### Boleto de salida
 
-1. **¿Qué diferencia hay entre un proceso batch y la API REST de la Semana 3? Da dos.**
+**1. ¿Qué diferencia hay entre un step de tipo Tasklet y uno de tipo chunk?**
 
-   Un proceso batch ejecuta tareas de forma programada o por lotes con el fin de procesas grandes cantidades de datos de forma automática y divisible para no sobrecargar un servidor. Por lotro lado una API REST responde a peticiones enviadas por los usuarios o por otros sistemas en tiempo real.
+Un Tasklet realiza una tarea completa, mientras que un chunk procesa los datos en grupos, leyendo, procesando y escribiendo cierta cantidad de elementos por transacción.
 
-2. **¿Qué es un Job, qué es un Step y qué es un Tasklet?**
+**2. ¿Qué hace cada una de las tres piezas de un chunk? ¿Cuál es opcional?**
 
-   Un Job representa el trabajo completo que se quiere ejecutar.
+El Reader lee los datos, el Processor es opcional y los transforma o valida y el Writer escribe los datos procesados. .
 
-   Un Step es un paso dentro de un Job.
+**3. Con 45 movimientos y chunks de 10, ¿cuántos commits habría? ¿Y con chunks de 50?**
 
-   Un Tasklet es una tarea concreta que se ejecuta dentro de un Step y que realiza una acción específica.
+Con chunks de 10 se necesitarían 5 commits pues en 5 chunks caben 50 movimientos, el mínimo suficiente para los 45 movimientos.
 
-3. **¿Con tus tablas: qué diferencia hay entre una JobInstance y una JobExecution?**
+Con chunks de 50 se necesitaría solo un commit ya que los 45 movimientos caben en un solo chunk.
 
-   Una JobInstance representa una ejecución lógica de un Job y se identifica por el nombre del Job y sus parámetros, por ejemplo, la fecha del cierre bancario. Si se vuelve a utilizar la misma fecha y los mismos parámetros, se trata de la misma JobInstance.
+**4. ¿Por qué el Escritor recibe el chunk completo y no un movimiento a la vez?**
 
-   Una JobExecution representa un intento concreto de ejecutar esa JobInstance. Una misma JobInstance puede tener varias JobExecution si una ejecución falla y posteriormente se vuelve a intentar. En las tablas de Spring Batch se pueden observar estos intentos y su estado de completado.
+Porque puede escribir los elementos en grupo dentro de una misma transacción de forma eficiente.
 
+**5. Mi predicción de la MP-3, paso 1: ¿qué habría pasado sin el Procesador?**
 
-4. **¿Por qué Spring Batch no deja correr dos veces el cierre del 28?**
-
-   Porque el cierre del día 28 tiene los mismos parámetros y, por lo tanto, corresponde a la misma JobInstance. 
-
-5. **(MP-4, paso 6) Si mañana llega el archivo del 25 y corres otra vez el cierre del 25, ¿será otra instancia u otra ejecución de la misma? ¿Por qué lo crees?**
-
-   Será otra JobExecution de la misma JobInstance, pero solo si se utilicen exactamente los mismos parámetros del cierre del día 25. La JobInstance se identifica por el nombre del Job y sus parámetros, mientras que cada intento de ejecución genera una JobExecution diferente.
+Los movimientos pasarían directamente del Reader al Writer, sin realizar ninguna transformación o validación intermedia.
